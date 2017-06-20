@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Dale Barrie basic snake test</title>
+<script src="javascript/jquery-3.2.1.min.js"></script>
+<script src="javascript/jquery.hotkeys.js"></script>
+<script src="javascript/key_status.js"></script>
+
+</head>
+<body>
+<h1>Dale Barrie basic snake test</h1>
+
+<canvas id="snakeMap" width="450" height="450" style="border:1px solid #000000;"></canvas>
+
+<script>
+var canvas = document.getElementById("snakeMap");
+var scale = 10;
+
+var ctx = canvas.getContext("2d");
+
+ctx.fillRect(0, 0, 450, 450); 
+
+var FPS = 10;
+setInterval(function(){
+update();
+draw();
+}, 1000/FPS);
+
+function update(){
+
+if(keydown.up){
+snake.y -= scale;
+}
+
+if(keydown.down){
+snake.y += scale;
+}
+
+if(keydown.left){
+snake.x -= scale;
+}
+
+if(keydown.right){
+snake.x += scale;
+}
+
+}
+
+function draw(){
+ctx.clearRect(0, 0, 450, 450);
+ snake.draw();
+ 
+ food.draw();
+}
+
+var snake = {
+	color: "#00FF00",
+	chunks: 1,
+	width: 1 * scale,
+	height: 1 * scale,
+	x: 220,
+	y: 380,
+	draw: function(){
+		ctx.fillStyle = this.color;
+		ctx.fillRect(this.x, this.y, this.width, this.height);
+	}
+}
+
+var food = {
+	color: " #F00",
+	x: function(){
+		var pos = Math.floor((Math.random() * 45) + 0),
+		var scaledPos = 45 * scale;
+	}
+	y: 380,
+	draw: function(){
+		ctx.fillStyle = this.color;
+		ctx.fillRect(this.x, this.y, scale, scale);	
+	}
+}
+
+</script>
+</body>
+</html>
