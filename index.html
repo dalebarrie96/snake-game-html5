@@ -66,7 +66,10 @@ if(keydown.right){
 lastPressed = "right";
 }
 
+	
 inBorder();
+
+eatFood();
 
 }
 
@@ -91,23 +94,36 @@ var snake = {
 }
 
 var food = {
+	active: true,
 	color: " #F00",
 	x: (Math.floor((Math.random() * 45) + 0)) * scale,
 	y: (Math.floor((Math.random() * 45) + 0)) * scale,
 	draw: function(){
 		ctx.fillStyle = this.color;
 		ctx.fillRect(this.x, this.y, scale, scale);	
-	}
+	},
+	explode: function(){
+			score ++;
+			this.active = false;
+		}
 }
 
 function die(){
 console.log("you died");
+lastPressed = "dead";
 }
 
 function inBorder(){
- if (snake.x >= (CANVAS_WIDTH - scale) || snake.x <= (0 + scale) || snake.y >= (CANVAS_HEIGHT - scale) || snake.y <= (0 + scale)){
+ if (snake.x >= (CANVAS_WIDTH - scale) || snake.x <= (0) || snake.y >= (CANVAS_HEIGHT - scale) || snake.y <= (0)){
 	die();
  }
+}
+
+function eatFood(){
+if((snake.x == food.x) && (snake.y == food.y)){
+	console.log("eat");
+	food.explode();
+}
 }
 
 </script>
