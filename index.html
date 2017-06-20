@@ -15,12 +15,14 @@
 <script>
 var canvas = document.getElementById("snakeMap");
 var scale = 10;
+var lastPressed = "up";
 
 var ctx = canvas.getContext("2d");
 
+
 ctx.fillRect(0, 0, 450, 450); 
 
-var FPS = 10;
+var FPS = 20;
 setInterval(function(){
 update();
 draw();
@@ -28,20 +30,32 @@ draw();
 
 function update(){
 
+if(lastPressed == "up"){
+	snake.y -= scale;
+}
 if(keydown.up){
-snake.y -= scale;
+	lastPressed = "up";
 }
 
+if(lastPressed == "down"){
+	snake.y += scale;
+}
 if(keydown.down){
-snake.y += scale;
+lastPressed = "down";
 }
 
+if(lastPressed == "left"){
+	snake.x -= scale;
+}
 if(keydown.left){
-snake.x -= scale;
+lastPressed = "left"
 }
 
+if(lastPressed == "right"){
+	snake.x += scale;
+}
 if(keydown.right){
-snake.x += scale;
+lastPressed = "right";
 }
 
 }
@@ -68,11 +82,8 @@ var snake = {
 
 var food = {
 	color: " #F00",
-	x: function(){
-		var pos = Math.floor((Math.random() * 45) + 0),
-		var scaledPos = 45 * scale;
-	}
-	y: 380,
+	x: (Math.floor((Math.random() * 45) + 0)) * scale,
+	y: (Math.floor((Math.random() * 45) + 0)) * scale,
 	draw: function(){
 		ctx.fillStyle = this.color;
 		ctx.fillRect(this.x, this.y, scale, scale);	
