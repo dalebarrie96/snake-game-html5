@@ -12,15 +12,23 @@
 
 <canvas id="snakeMap" width="450" height="450" style="border:1px solid #000000;"></canvas>
 
+<div id="score">
+<h3> your score is 0</h3>
+</div>
+
 <script>
 var canvas = document.getElementById("snakeMap");
+var CANVAS_WIDTH = 450;
+var CANVAS_HEIGHT = 450;
+
 var scale = 10;
 var lastPressed = "up";
+var score = 0;
 
 var ctx = canvas.getContext("2d");
 
 
-ctx.fillRect(0, 0, 450, 450); 
+ctx.fillRect(0, 0, CANVAS_HEIGHT, CANVAS_WIDTH); 
 
 var FPS = 20;
 setInterval(function(){
@@ -58,10 +66,12 @@ if(keydown.right){
 lastPressed = "right";
 }
 
+inBorder();
+
 }
 
 function draw(){
-ctx.clearRect(0, 0, 450, 450);
+ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
  snake.draw();
  
  food.draw();
@@ -88,6 +98,16 @@ var food = {
 		ctx.fillStyle = this.color;
 		ctx.fillRect(this.x, this.y, scale, scale);	
 	}
+}
+
+function die(){
+console.log("you died");
+}
+
+function inBorder(){
+ if (snake.x >= (CANVAS_WIDTH - scale) || snake.x <= (0 + scale) || snake.y >= (CANVAS_HEIGHT - scale) || snake.y <= (0 + scale)){
+	die();
+ }
 }
 
 </script>
